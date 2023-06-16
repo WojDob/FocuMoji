@@ -34,7 +34,7 @@ class TimerManager extends ChangeNotifier {
   }
 
   void _setDigits(int remainingSeconds) {
-    _minutes = (remainingSeconds / 60).toInt();
+    _minutes = remainingSeconds ~/ 60;
     _seconds = remainingSeconds - (_minutes * 60);
   }
 }

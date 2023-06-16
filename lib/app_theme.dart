@@ -3,55 +3,55 @@ import 'package:google_fonts/google_fonts.dart';
 
 class TimerTheme {
   static TextTheme lightTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
+    bodyLarge: GoogleFonts.openSans(
       fontSize: 14.0,
       fontWeight: FontWeight.w700,
-      color: Colors.black,
+      color: Colors.grey[900],
     ),
-    headline1: GoogleFonts.openSans(
+    displayLarge: GoogleFonts.openSans(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
-      color: Colors.black,
+      color: Colors.grey[900],
     ),
-    headline2: GoogleFonts.openSans(
+    displayMedium: GoogleFonts.openSans(
       fontSize: 21.0,
       fontWeight: FontWeight.w700,
-      color: Colors.black,
+      color: Colors.grey[900],
     ),
-    headline3: GoogleFonts.openSans(
+    displaySmall: GoogleFonts.openSans(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
-      color: Colors.black,
+      color: Colors.grey[900],
     ),
-    headline6: GoogleFonts.openSans(
+    titleLarge: GoogleFonts.openSans(
       fontSize: 20.0,
       fontWeight: FontWeight.w600,
-      color: Colors.black,
+      color: Colors.grey[900],
     ),
   );
 
   static TextTheme darkTextTheme = TextTheme(
-    bodyText1: GoogleFonts.openSans(
+    bodyLarge: GoogleFonts.openSans(
       fontSize: 14.0,
       fontWeight: FontWeight.w700,
       color: Colors.white,
     ),
-    headline1: GoogleFonts.openSans(
+    displayLarge: GoogleFonts.openSans(
       fontSize: 32.0,
       fontWeight: FontWeight.bold,
       color: Colors.white,
     ),
-    headline2: GoogleFonts.openSans(
+    displayMedium: GoogleFonts.openSans(
       fontSize: 21.0,
       fontWeight: FontWeight.w700,
       color: Colors.white,
     ),
-    headline3: GoogleFonts.openSans(
+    displaySmall: GoogleFonts.openSans(
       fontSize: 16.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,
     ),
-    headline6: GoogleFonts.openSans(
+    titleLarge: GoogleFonts.openSans(
       fontSize: 20.0,
       fontWeight: FontWeight.w600,
       color: Colors.white,
@@ -60,6 +60,7 @@ class TimerTheme {
 
   static ThemeData light() {
     return ThemeData(
+      scaffoldBackgroundColor: Color.fromRGBO(242, 242, 246, 1.0),
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith((states) {
@@ -68,14 +69,14 @@ class TimerTheme {
       ),
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,
-        backgroundColor: Colors.white,
+        backgroundColor: Color.fromRGBO(246, 246, 247, 1.0),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
-        foregroundColor: Colors.white,
+        foregroundColor: Color.fromRGBO(242, 242, 246, 1.0),
         backgroundColor: Colors.black,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        selectedItemColor: Colors.green,
+        selectedItemColor: Color.fromARGB(255, 29, 160, 79),
       ),
       textTheme: lightTextTheme,
     );
@@ -93,6 +94,7 @@ class TimerTheme {
         backgroundColor: Colors.green,
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Color.fromARGB(255, 32, 32, 32),
         selectedItemColor: Colors.green,
       ),
       textTheme: darkTextTheme,

@@ -47,6 +47,7 @@ class HomeState extends State<Home> {
               BottomNavigationBarItem(
                 icon: Icon(Icons.more_horiz),
                 label: 'More',
+                backgroundColor: Colors.red,
               ),
             ],
           ),
