@@ -27,6 +27,10 @@ class TimerScreen extends StatelessWidget {
                 '${timerProvider.minutes.toString().padLeft(2, '0')}:${timerProvider.seconds.toString().padLeft(2, '0')}',
                 style: TextStyle(fontSize: 48),
               ),
+              ElevatedButton(
+                child: Text("Start"),
+                onPressed: () => timerProvider.startTimer(),
+              )
             ],
           ),
         ),

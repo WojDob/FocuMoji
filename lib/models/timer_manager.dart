@@ -11,7 +11,9 @@ class TimerManager extends ChangeNotifier {
   int get seconds => _seconds;
 
   void setTimer(int minutes) {
+    _timer?.cancel();
     _remaining = 60 * minutes;
+    _setDigits(_remaining);
     notifyListeners();
   }
 
