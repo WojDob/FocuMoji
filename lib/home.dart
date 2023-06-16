@@ -24,12 +24,6 @@ class HomeState extends State<Home> {
     return Consumer<TabManager>(
       builder: (context, tabManager, child) {
         return Scaffold(
-          appBar: AppBar(
-            title: Text(
-              'app_title_placeholder',
-              style: Theme.of(context).textTheme.headline6,
-            ),
-          ),
           body: IndexedStack(
             index: tabManager.selectedTab,
             children: pages,

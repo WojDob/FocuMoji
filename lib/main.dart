@@ -21,6 +21,7 @@ class SquareTimer extends StatelessWidget {
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => TabManager()),
+          ChangeNotifierProvider(create: (context) => TimerManager()),
         ],
         child: const Home(),
       ),
