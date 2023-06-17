@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:square_timer/screens/countdown_screen.dart';
 import '../models/models.dart';
+import 'package:provider/provider.dart';
 
-class TimerScreen extends StatelessWidget {
+class TimerScreen extends StatefulWidget {
+  @override
+  State<TimerScreen> createState() => _TimerScreenState();
+}
+
+class _TimerScreenState extends State<TimerScreen> {
+  double _sliderValue = 0;
   @override
   Widget build(BuildContext context) {
-    final timerProvider = Provider.of<TimerManager>(context);
-
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -18,31 +23,36 @@ class TimerScreen extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        '${timerProvider.minutes.toString().padLeft(2, '0')}:${timerProvider.seconds.toString().padLeft(2, '0')}',
-                        style: TextStyle(fontSize: 48),
-                      ),
-                      const SizedBox(height: 8),
-                      ElevatedButton(
-                        child: Text("Start"),
-                        onPressed: () => timerProvider.startTimer(),
-                      ),
-                    ],
+                  Slider(
+                    value: _sliderValue,
+                    min: 0,
+                    max: 60,
+                    divisions: 60,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _sliderValue = newValue;
+                      });
+                    },
                   ),
-                  RotatedBox(
-                    quarterTurns: 3,
-                    child: Slider(
-                      value: timerProvider.minutes.toDouble(),
-                      min: 0,
-                      max: 60,
-                      divisions: 12,
-                      onChanged: (value) {
-                        timerProvider.setTimer(value.toInt());
-                      },
-                    ),
+                  Text(
+                    _sliderValue.round().toString(),
+                    style: const TextStyle(fontSize: 24),
+                  ),
+                  const SizedBox(height: 22),
+                  ElevatedButton(
+                    child: const Text("Start"),
+                    onPressed: () {
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              ChangeNotifierProvider(
+                            create: (context) => TimerManager(),
+                            builder: (context, child) =>
+                                CountdownScreen(title: "xd"),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),

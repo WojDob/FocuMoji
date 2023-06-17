@@ -5,14 +5,7 @@ import 'screens/more_screen.dart';
 import 'package:provider/provider.dart';
 import 'models/models.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
-
-  @override
-  HomeState createState() => HomeState();
-}
-
-class HomeState extends State<Home> {
+class Home extends StatelessWidget {
   static List<Widget> pages = <Widget>[
     TimerScreen(),
     MedalsScreen(),
