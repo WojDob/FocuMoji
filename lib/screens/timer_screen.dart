@@ -20,8 +20,8 @@ class _TimerScreenState extends State<TimerScreen> {
             child: SizedBox(
               width: 300,
               height: 200,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Slider(
                     value: _sliderValue,
@@ -46,9 +46,9 @@ class _TimerScreenState extends State<TimerScreen> {
                         MaterialPageRoute(
                           builder: (BuildContext context) =>
                               ChangeNotifierProvider(
-                            create: (context) => TimerManager(),
-                            builder: (context, child) =>
-                                CountdownScreen(title: "xd"),
+                            create: (context) =>
+                                TimerManager.started(_sliderValue.toInt()),
+                            builder: (context, child) => CountdownScreen(),
                           ),
                         ),
                       );

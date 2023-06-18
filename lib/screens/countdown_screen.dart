@@ -3,8 +3,7 @@ import '../models/models.dart';
 import 'package:provider/provider.dart';
 
 class CountdownScreen extends StatelessWidget {
-  String title;
-  CountdownScreen({Key? key, required this.title}) : super(key: key);
+  CountdownScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,9 +17,29 @@ class CountdownScreen extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
-        title: Text(title),
       ),
-      body: Placeholder(),
+      body: Center(
+        child: Card(
+          child: SizedBox(
+            width: 300,
+            height: 200,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '${timerProvider.minutes.toString().padLeft(2, '0')}:${timerProvider.seconds.toString().padLeft(2, '0')}',
+                      style: TextStyle(fontSize: 48),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -9,11 +9,15 @@ class TimerManager extends ChangeNotifier {
 
   int get minutes => _minutes;
   int get seconds => _seconds;
-
+  TimerManager();
+  TimerManager.started(int minutes) {
+    setTimer(minutes);
+  }
   void setTimer(int minutes) {
     _timer?.cancel();
     _remaining = 60 * minutes;
     _setDigits(_remaining);
+    startTimer();
     notifyListeners();
   }
 
@@ -28,13 +32,20 @@ class TimerManager extends ChangeNotifier {
         _timer!.cancel();
       } else {
         _setDigits(_remaining);
+        notifyListeners();
       }
-      notifyListeners();
     });
   }
 
   void _setDigits(int remainingSeconds) {
     _minutes = remainingSeconds ~/ 60;
     _seconds = remainingSeconds - (_minutes * 60);
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+
+    super.dispose();
   }
 }
