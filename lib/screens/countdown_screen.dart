@@ -12,39 +12,43 @@ class CountdownScreen extends StatelessWidget {
     final timerProvider = context.watch<TimerManager>();
 
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-      ),
+      appBar: _buildAppBar(context),
       body: Center(
         child: Card(
-          child: SizedBox(
-            // width: 300,
-            // height: 200,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      '${timerProvider.minutes.toString().padLeft(2, '0')}:${timerProvider.seconds.toString().padLeft(2, '0')}',
-                      style: TextStyle(fontSize: 48),
-                    ),
-                    SquaresGrid(
-                        totalNumberOfSquares:
-                            timerProvider.initialTimeInMinutes),
-                  ],
-                ),
-              ],
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _buildTimeText(timerProvider),
+                  SizedBox(height: 16),
+                  SquaresGrid(
+                      totalNumberOfSquares: timerProvider.initialTimeInMinutes)
+                ],
+              ),
+            ],
           ),
         ),
       ),
+    );
+  }
+
+  AppBar _buildAppBar(BuildContext context) {
+    return AppBar(
+      leading: IconButton(
+        icon: Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+    );
+  }
+
+  Text _buildTimeText(TimerManager timerProvider) {
+    return Text(
+      '${timerProvider.minutes.toString().padLeft(2, '0')}:${timerProvider.seconds.toString().padLeft(2, '0')}',
+      style: TextStyle(fontSize: 48),
     );
   }
 }
@@ -60,14 +64,12 @@ class SquaresGrid extends StatefulWidget {
 
 class _SquaresGridState extends State<SquaresGrid> {
   List<bool> squaresShown = [];
-  List<bool> squaresFilled = [];
 
   @override
   void initState() {
     super.initState();
 
     squaresShown = List.generate(widget.totalNumberOfSquares, (index) => false);
-
     revealSquares();
   }
 
@@ -82,9 +84,8 @@ class _SquaresGridState extends State<SquaresGrid> {
 
   @override
   Widget build(BuildContext context) {
-    int rowCount =
-        (sqrt(widget.totalNumberOfSquares)).ceil(); // Calculate the rowCount
-    double gridWidth = rowCount * 24.0; // Width for the GridView.
+    int rowCount = (sqrt(widget.totalNumberOfSquares)).ceil();
+    double gridWidth = rowCount * 24.0;
     final timerProvider = context.watch<TimerManager>();
     int numberOfActiveSquares =
         (timerProvider.totalRemainingSeconds / 60).ceil();
@@ -92,41 +93,37 @@ class _SquaresGridState extends State<SquaresGrid> {
     List<bool> squaresFilled = List.generate(widget.totalNumberOfSquares,
         (index) => index < numberOfActiveSquares ? true : false);
 
-    return Column(
-      children: [
-        Text(
-          widget.totalNumberOfSquares.toString(),
-          style: TextStyle(fontSize: 24),
+    return SizedBox(
+      width: gridWidth,
+      height: gridWidth,
+      child: GridView.builder(
+        physics: NeverScrollableScrollPhysics(),
+        itemCount: widget.totalNumberOfSquares,
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: rowCount,
+          mainAxisSpacing: 4,
+          crossAxisSpacing: 4,
         ),
-        SizedBox(height: 16),
-        SizedBox(
-          // Wrap the GridView.builder with Container
-          width: gridWidth, // Set the width for the Container.
-          height: gridWidth, // Set the height for the Container.
-          child: GridView.builder(
-            physics: NeverScrollableScrollPhysics(),
-            itemCount: widget.totalNumberOfSquares,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: rowCount,
-              mainAxisSpacing: 4,
-              crossAxisSpacing: 4,
-            ),
-            itemBuilder: (context, index) => Container(
-              width: 200,
-              height: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color:
-                    (squaresFilled[index]) ? Colors.yellow : Colors.transparent,
-                border: Border.all(
-                  color:
-                      squaresShown[index] ? Colors.black : Colors.transparent,
-                ),
-              ),
-            ),
-          ),
+        itemBuilder: (context, index) => _buildSquare(index, squaresFilled),
+      ),
+    );
+  }
+
+  Container _buildSquare(int index, List<bool> squaresFilled) {
+    return Container(
+      width: 200,
+      height: 200,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: (squaresFilled[index] && squaresShown[index])
+            ? Colors.yellow
+            : Colors.transparent,
+        border: Border.all(
+          color: (!squaresFilled[index] && squaresShown[index])
+              ? Colors.yellow
+              : Colors.transparent,
         ),
-      ],
+      ),
     );
   }
 }

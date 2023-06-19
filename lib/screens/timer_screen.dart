@@ -46,8 +46,8 @@ class _TimerScreenState extends State<TimerScreen> {
                         MaterialPageRoute(
                           builder: (BuildContext context) =>
                               ChangeNotifierProvider(
-                            create: (context) =>
-                                TimerManager.started(_sliderValue.toInt()),
+                            create: (context) => TimerManager.started(
+                                initialTimeInMinutes: _sliderValue.toInt()),
                             builder: (context, child) => CountdownScreen(),
                           ),
                         ),
