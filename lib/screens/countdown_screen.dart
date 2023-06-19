@@ -35,7 +35,9 @@ class CountdownScreen extends StatelessWidget {
                       '${timerProvider.minutes.toString().padLeft(2, '0')}:${timerProvider.seconds.toString().padLeft(2, '0')}',
                       style: TextStyle(fontSize: 48),
                     ),
-                    SquaresGrid(number: timerProvider.minutes),
+                    SquaresGrid(
+                        totalNumberOfSquares:
+                            timerProvider.initialTimeInMinutes),
                   ],
                 ),
               ],
@@ -48,30 +50,32 @@ class CountdownScreen extends StatelessWidget {
 }
 
 class SquaresGrid extends StatefulWidget {
-  final int number;
+  final int totalNumberOfSquares;
 
-  SquaresGrid({required this.number});
+  SquaresGrid({required this.totalNumberOfSquares});
 
   @override
   _SquaresGridState createState() => _SquaresGridState();
 }
 
 class _SquaresGridState extends State<SquaresGrid> {
-  List<bool> gridStates = [];
+  List<bool> squaresShown = [];
+  List<bool> squaresFilled = [];
 
   @override
   void initState() {
     super.initState();
-    gridStates = List.generate(widget.number, (index) => false);
+
+    squaresShown = List.generate(widget.totalNumberOfSquares, (index) => false);
+
     revealSquares();
   }
 
   Future<void> revealSquares() async {
-    for (int i = 0; i < widget.number; i++) {
+    for (int i = 0; i < widget.totalNumberOfSquares; i++) {
       await Future.delayed(Duration(milliseconds: 100));
       setState(() {
-        // Update gridStates to reveal the next square
-        gridStates[i] = true;
+        squaresShown[i] = true;
       });
     }
   }
@@ -79,23 +83,29 @@ class _SquaresGridState extends State<SquaresGrid> {
   @override
   Widget build(BuildContext context) {
     int rowCount =
-        (sqrt(widget.number.toDouble())).ceil(); // Calculate the rowCount
+        (sqrt(widget.totalNumberOfSquares)).ceil(); // Calculate the rowCount
     double gridWidth = rowCount * 24.0; // Width for the GridView.
+    final timerProvider = context.watch<TimerManager>();
+    int numberOfActiveSquares =
+        (timerProvider.totalRemainingSeconds / 60).ceil();
+
+    List<bool> squaresFilled = List.generate(widget.totalNumberOfSquares,
+        (index) => index < numberOfActiveSquares ? true : false);
 
     return Column(
       children: [
         Text(
-          widget.number.toString(),
+          widget.totalNumberOfSquares.toString(),
           style: TextStyle(fontSize: 24),
         ),
         SizedBox(height: 16),
-        Container(
+        SizedBox(
           // Wrap the GridView.builder with Container
           width: gridWidth, // Set the width for the Container.
           height: gridWidth, // Set the height for the Container.
           child: GridView.builder(
             physics: NeverScrollableScrollPhysics(),
-            itemCount: widget.number,
+            itemCount: widget.totalNumberOfSquares,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: rowCount,
               mainAxisSpacing: 4,
@@ -106,9 +116,11 @@ class _SquaresGridState extends State<SquaresGrid> {
               height: 200,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
-                color: gridStates[index] ? Colors.yellow : Colors.transparent,
+                color:
+                    (squaresFilled[index]) ? Colors.yellow : Colors.transparent,
                 border: Border.all(
-                  color: gridStates[index] ? Colors.yellow : Colors.transparent,
+                  color:
+                      squaresShown[index] ? Colors.black : Colors.transparent,
                 ),
               ),
             ),
