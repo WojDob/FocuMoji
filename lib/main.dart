@@ -14,7 +14,7 @@ class SquareTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = TimerTheme.light();
+    final theme = TimerTheme.dark();
     return MaterialApp(
       theme: theme,
       title: 'SquareTimer',
