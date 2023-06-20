@@ -14,31 +14,35 @@ class CountdownScreen extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       body: Center(
-        child: Card(
-          child: SizedBox(
-            width: 300,
-            height: 500,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              child: Column(
-                children: [
-                  _buildTimeText(timerProvider),
-                  SizedBox(height: 16),
-                  Expanded(
-                    child: SquaresGrid(
-                      totalNumberOfSquares: timerProvider.initialTimeInMinutes,
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Card(
+            child: SizedBox(
+              width: 300,
+              height: 500,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Column(
+                  children: [
+                    _buildTimeText(timerProvider),
+                    SizedBox(height: 16),
+                    Expanded(
+                      child: SquaresGrid(
+                        totalNumberOfSquares:
+                            timerProvider.initialTimeInMinutes,
+                      ),
                     ),
-                  ),
-                  Visibility(
-                    visible: timerProvider.timerEnded,
-                    child: ElevatedButton(
-                      onPressed: () {
-                        _showModal(context);
-                      },
-                      child: Text('Open Modal'),
+                    Visibility(
+                      visible: timerProvider.timerEnded,
+                      child: ElevatedButton(
+                        onPressed: () {
+                          _showModal(context);
+                        },
+                        child: Text('Open Modal'),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
