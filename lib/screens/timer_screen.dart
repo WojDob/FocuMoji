@@ -31,8 +31,8 @@ class _TimerScreenState extends State<TimerScreen> {
                         Slider(
                           value: _sliderValue,
                           min: 0,
-                          max: 60,
-                          divisions: 60,
+                          max: 120,
+                          divisions: 120,
                           onChanged: (newValue) {
                             setState(() {
                               _sliderValue = newValue;

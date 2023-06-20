@@ -9,6 +9,7 @@ class TimerManager extends ChangeNotifier {
   int get minutes => _totalRemainingSeconds ~/ 60;
   int get seconds => _totalRemainingSeconds % 60;
   int get totalRemainingSeconds => _totalRemainingSeconds;
+  bool get timerEnded => _totalRemainingSeconds <= 0;
 
   TimerManager({required this.initialTimeInMinutes})
       : _totalRemainingSeconds = initialTimeInMinutes * 60;
