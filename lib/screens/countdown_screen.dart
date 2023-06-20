@@ -19,7 +19,7 @@ class CountdownScreen extends StatelessWidget {
             width: 300,
             height: 500,
             child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 40),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               child: Column(
                 children: [
                   _buildTimeText(timerProvider),
@@ -29,7 +29,6 @@ class CountdownScreen extends StatelessWidget {
                       totalNumberOfSquares: timerProvider.initialTimeInMinutes,
                     ),
                   ),
-                  SizedBox(height: 16),
                   Visibility(
                     visible: timerProvider.timerEnded,
                     child: ElevatedButton(

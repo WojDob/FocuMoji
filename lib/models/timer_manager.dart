@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
+import 'package:flutter/foundation.dart';
 
 class TimerManager extends ChangeNotifier {
   final int initialTimeInMinutes;
@@ -29,15 +30,24 @@ class TimerManager extends ChangeNotifier {
   void startTimer() {
     _timer?.cancel();
 
-    _timer = Timer.periodic(Duration(seconds: 1), (_) {
-      _totalRemainingSeconds--;
+    _timer = Timer.periodic(
+      _getTimerDuration(),
+      (_) {
+        _totalRemainingSeconds--;
 
-      if (_totalRemainingSeconds < 0) {
-        _timer!.cancel();
-      } else {
-        notifyListeners();
-      }
-    });
+        if (_totalRemainingSeconds < 0) {
+          _totalRemainingSeconds = 0; //sometimes the timer overdoes it
+          _timer!.cancel();
+        } else {
+          notifyListeners();
+        }
+      },
+    );
+  }
+
+  Duration _getTimerDuration() {
+    bool isDebugMode = kDebugMode;
+    return isDebugMode ? Duration(milliseconds: 10) : Duration(seconds: 1);
   }
 
   @override
