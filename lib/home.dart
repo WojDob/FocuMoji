@@ -13,6 +13,8 @@ class Home extends StatelessWidget {
     MoreScreen(),
   ];
 
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context) {
     User? user = FirebaseAuth.instance.currentUser;

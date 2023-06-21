@@ -116,6 +116,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_signin_button",
+      "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/flutter_signin_button-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///home/wojdob/snap/flutter/common/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -126,6 +132,12 @@
       "rootUri": "file:///home/wojdob/snap/flutter/common/flutter/packages/flutter_web_plugins",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "font_awesome_flutter",
+      "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/font_awesome_flutter-9.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "google_fonts",
@@ -368,7 +380,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-06-21T10:31:46.533274Z",
+  "generated": "2023-06-21T12:11:26.339880Z",
   "generator": "pub",
   "generatorVersion": "3.0.3"
 }
