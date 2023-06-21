@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'app_theme.dart';
-import 'login.dart';
+import 'screens/login_screen.dart';
 import 'package:provider/provider.dart';
 import 'models/models.dart';
 
@@ -24,7 +24,7 @@ class SquareTimer extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => TabManager()),
         ],
-        child: LoginScreen(),
+        child: const LoginScreen(),
       ),
     );
   }
