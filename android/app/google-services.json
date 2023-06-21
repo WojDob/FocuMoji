@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "70146942065-a25dqdlp7ahuih1rbdaikckb7asfj0bn.apps.googleusercontent.com",
+          "client_id": "70146942065-il3464lhjvdvneh71hua2usq3rmhjp7l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.focumoji",
+            "certificate_hash": "303684d2e8d2ff3d3d22aa5a31e265656cc0f7ac"
+          }
+        },
+        {
+          "client_id": "70146942065-254p0dj2vsag0fmosu3it28bv4i0be7o.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
@@ -27,43 +35,7 @@
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "70146942065-a25dqdlp7ahuih1rbdaikckb7asfj0bn.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "70146942065-avjqpu2oq5dbjjsksu5pienah8a4cd1e.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.pomo"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:70146942065:android:1265b62405a3447906a7d0",
-        "android_client_info": {
-          "package_name": "com.example.pomo"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "70146942065-a25dqdlp7ahuih1rbdaikckb7asfj0bn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCb3UvOzAzTqMB1aa0nHPBBUac1M6B_YYU"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "70146942065-a25dqdlp7ahuih1rbdaikckb7asfj0bn.apps.googleusercontent.com",
+              "client_id": "70146942065-254p0dj2vsag0fmosu3it28bv4i0be7o.apps.googleusercontent.com",
               "client_type": 3
             },
             {

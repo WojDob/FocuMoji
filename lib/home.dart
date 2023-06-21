@@ -4,6 +4,7 @@ import 'screens/medals_screen.dart';
 import 'screens/more_screen.dart';
 import 'package:provider/provider.dart';
 import 'models/models.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Home extends StatelessWidget {
   static List<Widget> pages = <Widget>[
@@ -14,9 +15,14 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User? user = FirebaseAuth.instance.currentUser;
+    String? userEmail = user?.email;
     return Consumer<TabManager>(
       builder: (context, tabManager, child) {
         return Scaffold(
+          appBar: AppBar(
+            title: Text(userEmail ?? 'Not Logged In'),
+          ),
           body: IndexedStack(
             index: tabManager.selectedTab,
             children: pages,

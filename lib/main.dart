@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
 import 'app_theme.dart';
-import 'home.dart';
+import 'login.dart';
 import 'package:provider/provider.dart';
 import 'models/models.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const SquareTimer());
 }
 
@@ -23,7 +24,7 @@ class SquareTimer extends StatelessWidget {
         providers: [
           ChangeNotifierProvider(create: (context) => TabManager()),
         ],
-        child: Home(),
+        child: LoginScreen(),
       ),
     );
   }
