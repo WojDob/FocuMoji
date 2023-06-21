@@ -47,34 +47,31 @@ class LoginScreen extends StatelessWidget {
 }
 
 Future<UserCredential> signInWithGoogle() async {
-  // Trigger the authentication flow
-  final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  final GoogleSignIn googleSignIn = GoogleSignIn();
 
-  // Obtain the auth details from the request
-  final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+  // Disconnect the current user if any
+  await googleSignIn.disconnect();
 
-  // Create a new credential
-  final credential = GoogleAuthProvider.credential(
-    accessToken: googleAuth?.accessToken,
-    idToken: googleAuth?.idToken,
-  );
+  // Start the authentication flow
+  final GoogleSignInAccount? account = await googleSignIn.signIn();
 
-  // Once signed in, return the UserCredential
-  return await FirebaseAuth.instance.signInWithCredential(credential);
-}
-
-class SignInWithGoogleButton extends StatelessWidget {
-  final Function() onPressed;
-
-  const SignInWithGoogleButton({Key? key, required this.onPressed})
-      : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SignInButton(
-      Buttons.Google,
-      onPressed: onPressed,
+  // Cancel the sign-in flow if the user cancels or no account is selected
+  if (account == null) {
+    throw FirebaseAuthException(
+      code: 'user-cancelled',
+      message: 'User cancelled the sign-in process.',
     );
   }
+
+  // Obtain the auth details from the selected account
+  final GoogleSignInAuthentication googleAuth = await account.authentication;
+
+  // Create a new credential
+  final OAuthCredential credential = GoogleAuthProvider.credential(
+    accessToken: googleAuth.accessToken,
+    idToken: googleAuth.idToken,
+  );
+
+  // Sign in with the credential
+  return FirebaseAuth.instance.signInWithCredential(credential);
 }
