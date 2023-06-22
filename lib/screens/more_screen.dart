@@ -1,20 +1,44 @@
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+// import 'package:firebase_auth/firebase_auth.dart';
 // import 'login_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('More Screen'),
+    return SafeArea(
+      child: SizedBox(
+        width: 300,
+        height: 500,
+        child: Center(
+          child: Column(
+            children: [
+              ElevatedButton(
+                onPressed: () async {
+                  final sharedPrefs = await SharedPreferences.getInstance();
+                  final storedEmojis =
+                      sharedPrefs.getStringList('emojis') ?? [];
+                  print(storedEmojis);
+                },
+                child: Text('View Shared Preferences'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  final sharedPrefs = await SharedPreferences.getInstance();
+                  await sharedPrefs.clear();
+                },
+                child: Text('Delet Shared Preferences'),
+              ),
+            ],
+          ),
         ),
-        body: const Placeholder(
-          color: Colors.purpleAccent,
-        ));
+      ),
+    );
   }
+}
+
 
   // Future<void> _signOutAndNavigate(BuildContext context) async {
   //   await FirebaseAuth.instance.signOut();
@@ -42,4 +66,4 @@ class MoreScreen extends StatelessWidget {
   //     ),
   //   );
   // }
-}
+// }

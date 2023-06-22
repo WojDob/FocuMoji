@@ -1,75 +1,84 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
-class MedalsScreen extends StatelessWidget {
-  MedalsScreen({super.key});
-
+class MedalsScreen extends StatefulWidget {
+  const MedalsScreen({super.key});
   @override
-  Widget build(BuildContext context) {
-    return SafeArea(
-      child: SizedBox(
-        width: 300,
-        height: 500,
-        child: Center(
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  final sharedPrefs = await SharedPreferences.getInstance();
-                  final storedEmojis =
-                      sharedPrefs.getStringList('emojis') ?? [];
-                  print(storedEmojis);
-                },
-                child: Text('View Shared Preferences'),
-              ),
-              // EmojiListScreen(),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
+  _MedalsScreenState createState() => _MedalsScreenState();
 }
 
-class EmojiListScreen extends StatefulWidget {
-  @override
-  _EmojiListScreenState createState() => _EmojiListScreenState();
-}
-
-class _EmojiListScreenState extends State<EmojiListScreen> {
-  List<String> emojis = [];
+class _MedalsScreenState extends State<MedalsScreen> {
+  late Future<List<String>> emojisFuture;
 
   @override
   void initState() {
     super.initState();
-    loadEmojis();
+    emojisFuture = loadEmojis();
   }
 
-  Future<void> loadEmojis() async {
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    emojisFuture = loadEmojis();
+  }
+
+  Future<List<String>> loadEmojis() async {
     final sharedPrefs = await SharedPreferences.getInstance();
+    return sharedPrefs.getStringList('emojis') ?? [];
+  }
+
+  Future<void> saveEmojis(List<String> emojis) async {
+    final sharedPrefs = await SharedPreferences.getInstance();
+    await sharedPrefs.setStringList('emojis', emojis);
+  }
+
+  void addEmoji(String emoji, List<String> emojis) {
     setState(() {
-      emojis = sharedPrefs.getStringList('emojis') ?? [];
+      emojis.add(emoji);
     });
+    saveEmojis(emojis);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Selected Emojis'),
-      ),
-      body: ListView.builder(
-        itemCount: emojis.length,
-        itemBuilder: (context, index) {
-          return ListTile(
-            title: Text(
-              emojis[index],
-              style: TextStyle(
-                fontSize: 30,
-              ),
-            ),
-          );
-        },
+    return VisibilityDetector(
+      key: ValueKey('myUniqueKey'),
+      onVisibilityChanged: (visibilityInfo) {
+        setState(() {
+          emojisFuture = loadEmojis();
+        });
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Selected Emojis'),
+        ),
+        body: FutureBuilder<List<String>>(
+          future: emojisFuture,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final emojis = snapshot.data!;
+              return ListView.builder(
+                itemCount: emojis.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text(
+                      emojis[index],
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
+                    ),
+                  );
+                },
+              );
+            } else {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+          },
+        ),
       ),
     );
   }
