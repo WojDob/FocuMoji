@@ -110,6 +110,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_emoji",
+      "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/flutter_emoji-2.3.4",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "flutter_lints",
       "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/flutter_lints-2.0.1",
       "packageUri": "lib/",
@@ -380,7 +386,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-06-21T12:11:26.339880Z",
+  "generated": "2023-06-22T07:57:00.674237Z",
   "generator": "pub",
   "generatorVersion": "3.0.3"
 }
