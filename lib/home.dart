@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/timer_screen.dart';
+import 'screens/set_timer_screen.dart';
 import 'screens/medals_screen.dart';
 import 'screens/more_screen.dart';
 import 'package:provider/provider.dart';
