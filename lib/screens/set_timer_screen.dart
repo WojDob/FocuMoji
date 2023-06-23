@@ -42,9 +42,9 @@ class _TimerScreenState extends State<TimerScreen> {
       padding: const EdgeInsets.all(22.0),
       child: TextField(
         controller: _nameController,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           border: OutlineInputBorder(),
-          labelText: 'Enter a name for the timer',
+          labelText: 'Enter task name',
         ),
       ),
     );
@@ -89,13 +89,20 @@ class _TimerScreenState extends State<TimerScreen> {
               onPressed: () {
                 Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (BuildContext context) => ChangeNotifierProvider(
-                      create: (context) => TimerManager.started(
-                        initialTimeInMinutes: _sliderValue.toInt(),
-                        name: _nameController.text.isNotEmpty
-                            ? _nameController.text
-                            : 'Unnamed Timer',
-                      ),
+                    builder: (BuildContext context) => MultiProvider(
+                      providers: [
+                        ChangeNotifierProvider(
+                          create: (context) => TimerManager.started(
+                            initialTimeInMinutes: _sliderValue.toInt(),
+                            name: _nameController.text.isNotEmpty
+                                ? _nameController.text
+                                : 'Unnamed Timer',
+                          ),
+                        ),
+                        ChangeNotifierProvider(
+                          create: (context) => RewardsManager(),
+                        ),
+                      ],
                       builder: (context, child) => CountdownScreen(),
                     ),
                   ),

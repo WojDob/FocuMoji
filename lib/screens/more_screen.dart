@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 // import 'package:firebase_auth/firebase_auth.dart';
 // import 'login_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import '../models/rewards_manager.dart';
+import 'package:provider/provider.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    final rewardsProvider = context.watch<RewardsManager>();
     return SafeArea(
       child: SizedBox(
         width: 300,
@@ -19,15 +22,14 @@ class MoreScreen extends StatelessWidget {
                 onPressed: () async {
                   final sharedPrefs = await SharedPreferences.getInstance();
                   final storedEmojis =
-                      sharedPrefs.getStringList('emojis') ?? [];
+                      sharedPrefs.getStringList('rewards') ?? [];
                   print(storedEmojis);
                 },
                 child: Text('View Shared Preferences'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  final sharedPrefs = await SharedPreferences.getInstance();
-                  await sharedPrefs.clear();
+                  rewardsProvider.clean();
                 },
                 child: Text('Delet Shared Preferences'),
               ),

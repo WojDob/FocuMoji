@@ -38,15 +38,16 @@ class SquareTimer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = TimerTheme.light();
+    final theme = TimerTheme.dark();
+
     return MaterialApp(
       theme: theme,
       title: 'SquareTimer',
       home: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => TabManager()),
+          ChangeNotifierProvider(create: (context) => RewardsManager()),
         ],
-        // child: const LoginScreen(),
         child: const Home(),
       ),
     );

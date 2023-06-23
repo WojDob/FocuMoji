@@ -4,16 +4,20 @@ import 'package:flutter/material.dart';
 import '../components/squares_grid.dart';
 import '../models/models.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter/services.dart' show rootBundle;
 
 class CountdownScreen extends StatelessWidget {
   const CountdownScreen({Key? key}) : super(key: key);
+
+  Future<void> _initializeRewardsProvider(BuildContext context) async {
+    final rewardsProvider = context.read<RewardsManager>();
+    await rewardsProvider.initialize();
+  }
 
   @override
   Widget build(BuildContext context) {
     final timerProvider = context.watch<TimerManager>();
 
+    _initializeRewardsProvider(context); // Call the initialization method here
     return Scaffold(
       appBar: _buildAppBar(context),
       body: Center(
@@ -74,6 +78,8 @@ class CountdownScreen extends StatelessWidget {
   }
 
   void _showModal(BuildContext context) {
+    final rewardsProvider = context.read<RewardsManager>();
+    rewardsProvider.addRewards(5, "xd");
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -83,12 +89,13 @@ class CountdownScreen extends StatelessWidget {
           ),
           child: Container(
             constraints: const BoxConstraints(maxHeight: 350),
-            child: const Padding(
+            child: Padding(
               padding: EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("lorem ipsum "),
+                  Text(
+                      "${rewardsProvider.newRewards.map((emoji) => emoji.symbol)}"),
                 ],
               ),
             ),
