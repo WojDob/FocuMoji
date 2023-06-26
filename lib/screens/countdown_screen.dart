@@ -8,16 +8,10 @@ import 'package:provider/provider.dart';
 class CountdownScreen extends StatelessWidget {
   const CountdownScreen({Key? key}) : super(key: key);
 
-  Future<void> _initializeRewardsProvider(BuildContext context) async {
-    final rewardsProvider = context.read<RewardsManager>();
-    await rewardsProvider.initialize();
-  }
-
   @override
   Widget build(BuildContext context) {
     final timerProvider = context.watch<TimerManager>();
-
-    _initializeRewardsProvider(context); // Call the initialization method here
+    final rewardsProvider = context.watch<RewardsManager>();
     return Scaffold(
       appBar: _buildAppBar(context),
       body: Center(
@@ -44,6 +38,7 @@ class CountdownScreen extends StatelessWidget {
                       visible: timerProvider.timerEnded,
                       child: ElevatedButton(
                         onPressed: () async {
+                          rewardsProvider.add_reward(5);
                           _showModal(context);
                         },
                         child: const Text('Open Modal'),
@@ -79,7 +74,6 @@ class CountdownScreen extends StatelessWidget {
 
   void _showModal(BuildContext context) {
     final rewardsProvider = context.read<RewardsManager>();
-    rewardsProvider.addRewards(5, "xd");
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -94,8 +88,7 @@ class CountdownScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      "${rewardsProvider.newRewards.map((emoji) => emoji.symbol)}"),
+                  Text("xdd ${rewardsProvider.rewards_count}"),
                 ],
               ),
             ),

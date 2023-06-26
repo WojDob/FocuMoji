@@ -11,6 +11,7 @@ class MoreScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final rewardsProvider = context.watch<RewardsManager>();
+
     return SafeArea(
       child: SizedBox(
         width: 300,
@@ -29,14 +30,46 @@ class MoreScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  rewardsProvider.clean();
+                  rewardsProvider.rewards_count += 1;
                 },
                 child: Text('Delet Shared Preferences'),
+              ),
+              ElevatedButton(
+                onPressed: () async {
+                  rewardsProvider.add_reward(1);
+                },
+                child: Text("add one more ${rewardsProvider.rewards_count}"),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  void _showModal(BuildContext context) {
+    final rewardsProvider = context.read<RewardsManager>();
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: Container(
+            constraints: const BoxConstraints(maxHeight: 350),
+            child: Padding(
+              padding: EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("${rewardsProvider.rewards_count}"),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
