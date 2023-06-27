@@ -77,6 +77,7 @@ class _TimerScreenState extends State<TimerScreen> {
   }
 
   Widget _buildStartButton() {
+    final rewards = context.watch<RewardsManager>();
     return Positioned.fill(
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -87,26 +88,20 @@ class _TimerScreenState extends State<TimerScreen> {
             child: ElevatedButton(
               child: const Text("Start"),
               onPressed: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (BuildContext context) => MultiProvider(
-                      providers: [
-                        ChangeNotifierProvider(
-                          create: (context) => TimerManager.started(
-                            initialTimeInMinutes: _sliderValue.toInt(),
-                            name: _nameController.text.isNotEmpty
-                                ? _nameController.text
-                                : 'Unnamed Timer',
-                          ),
-                        ),
-                        ChangeNotifierProvider(
-                          create: (context) => RewardsManager(),
-                        ),
-                      ],
-                      builder: (context, child) => CountdownScreen(),
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => ChangeNotifierProvider(
+                    child: ChangeNotifierProvider<RewardsManager>.value(
+                      value: rewards,
+                      child: CountdownScreen(),
+                    ),
+                    create: (context) => TimerManager.started(
+                      initialTimeInMinutes: _sliderValue.toInt(),
+                      name: _nameController.text.isNotEmpty
+                          ? _nameController.text
+                          : 'Unnamed Timer',
                     ),
                   ),
-                );
+                ));
               },
             ),
           ),
@@ -115,3 +110,41 @@ class _TimerScreenState extends State<TimerScreen> {
     );
   }
 }
+// Widget _buildStartButton() {
+//     return Positioned.fill(
+//       child: Align(
+//         alignment: Alignment.bottomCenter,
+//         child: Visibility(
+//           visible: _sliderValue != 0,
+//           child: Padding(
+//             padding: const EdgeInsets.only(bottom: 16.0),
+//             child: ElevatedButton(
+//               child: const Text("Start"),
+//               onPressed: () {
+//                 Navigator.of(context).push(
+//                   MaterialPageRoute(
+//                     builder: (BuildContext context) => MultiProvider(
+//                       providers: [
+                        // ChangeNotifierProvider(
+                        //   create: (context) => TimerManager.started(
+                        //     initialTimeInMinutes: _sliderValue.toInt(),
+                        //     name: _nameController.text.isNotEmpty
+                        //         ? _nameController.text
+                        //         : 'Unnamed Timer',
+                        //   ),
+//                         ),
+//                         ChangeNotifierProvider(
+//                           create: (context) => RewardsManager(),
+//                         ),
+//                       ],
+//                       builder: (context, child) => CountdownScreen(),
+//                     ),
+//                   ),
+//                 );
+//               },
+//             ),
+//           ),
+//         ),
+//       ),
+//     );
+//   }

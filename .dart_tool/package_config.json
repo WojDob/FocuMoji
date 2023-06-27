@@ -206,6 +206,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "logger",
+      "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/logger-1.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "matcher",
       "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/matcher-0.12.15",
       "packageUri": "lib/",
@@ -428,7 +434,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-06-22T13:17:24.955432Z",
+  "generated": "2023-06-27T09:36:26.413457Z",
   "generator": "pub",
   "generatorVersion": "3.0.3"
 }

@@ -3,13 +3,43 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/services.dart' show rootBundle;
+import 'package:logger/logger.dart';
 import 'reward.dart';
 
 class RewardsManager extends ChangeNotifier {
   int rewards_count = 12;
+  String emoji = '🍆';
+
+  final Logger logger = Logger();
+
   void add_reward(int how_many) {
     rewards_count += how_many;
     notifyListeners();
+  }
+
+  Future<void> changeEmoji() async {
+    logger.i("Changing emoji, currently $emoji");
+
+    var random_emoji = await selectRandomEmojis(1);
+    emoji = random_emoji[0];
+    notifyListeners();
+    logger.i("Changed emoji to $emoji");
+  }
+
+  Future<List<String>> selectRandomEmojis(int count) async {
+    final jsonString =
+        await rootBundle.loadString('assets/data/emoji_list.json');
+    final List<dynamic> emojis = jsonDecode(jsonString);
+    final random = Random();
+    final List<String> randomEmojis = [];
+    while (randomEmojis.length < count) {
+      final randomIndex = random.nextInt(emojis.length);
+      if (!randomEmojis.contains(emojis[randomIndex])) {
+        randomEmojis.add(emojis[randomIndex]);
+      }
+    }
+    logger.i("Selected $count random emojis ");
+    return randomEmojis;
   }
 }
 // import 'dart:convert';
@@ -36,20 +66,20 @@ class RewardsManager extends ChangeNotifier {
 //     notifyListeners();
 //   }
 
-//   Future<List<String>> selectRandomEmojis(int count) async {
-//     final jsonString =
-//         await rootBundle.loadString('assets/data/emoji_list.json');
-//     final List<dynamic> emojis = jsonDecode(jsonString);
-//     final random = Random();
-//     final List<String> randomEmojis = [];
-//     while (randomEmojis.length < count) {
-//       final randomIndex = random.nextInt(emojis.length);
-//       if (!randomEmojis.contains(emojis[randomIndex])) {
-//         randomEmojis.add(emojis[randomIndex]);
-//       }
-//     }
-//     return randomEmojis;
-//   }
+  // Future<List<String>> selectRandomEmojis(int count) async {
+  //   final jsonString =
+  //       await rootBundle.loadString('assets/data/emoji_list.json');
+  //   final List<dynamic> emojis = jsonDecode(jsonString);
+  //   final random = Random();
+  //   final List<String> randomEmojis = [];
+  //   while (randomEmojis.length < count) {
+  //     final randomIndex = random.nextInt(emojis.length);
+  //     if (!randomEmojis.contains(emojis[randomIndex])) {
+  //       randomEmojis.add(emojis[randomIndex]);
+  //     }
+  //   }
+  //   return randomEmojis;
+  // }
 
 //   Future<void> addRewards(int count, String timerName) async {
 //     _newRewards = [];

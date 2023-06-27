@@ -9,6 +9,7 @@ class MedalsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var rewards = context.watch<RewardsManager>();
 
-    return SafeArea(child: Text("xd ${rewards.rewards_count}"));
+    return SafeArea(
+        child: Text("xd  ${rewards.emoji} ${rewards.rewards_count}"));
   }
 }

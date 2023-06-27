@@ -38,6 +38,7 @@ class CountdownScreen extends StatelessWidget {
                       visible: timerProvider.timerEnded,
                       child: ElevatedButton(
                         onPressed: () async {
+                          rewardsProvider.changeEmoji();
                           rewardsProvider.add_reward(5);
                           _showModal(context);
                         },
@@ -88,7 +89,8 @@ class CountdownScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("xdd ${rewardsProvider.rewards_count}"),
+                  Text(
+                      "xdd ${rewardsProvider.emoji} ${rewardsProvider.rewards_count}"),
                 ],
               ),
             ),
