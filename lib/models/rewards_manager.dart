@@ -7,8 +7,6 @@ import 'package:logger/logger.dart';
 import 'reward.dart';
 
 class RewardsManager extends ChangeNotifier {
-  int rewards_count = 12;
-  String emoji = '🍆';
   List<Reward> _allRewards = [];
   List<Reward> _newRewards = [];
   List<Reward> get allRewards => _allRewards;
@@ -28,24 +26,9 @@ class RewardsManager extends ChangeNotifier {
       );
     }).toList();
     _allRewards.addAll(_newRewards);
-    print("all rewards in addrewards $allRewards");
     notifyListeners();
     logger.i(
         "Added new rewards: $newRewards\n all rewards: $allRewards\n from $timerName");
-  }
-
-  void add_reward(int how_many) {
-    rewards_count += how_many;
-    notifyListeners();
-  }
-
-  Future<void> changeEmoji() async {
-    logger.i("Changing emoji, currently $emoji");
-
-    var random_emoji = await selectRandomEmojis(1);
-    emoji = random_emoji[0];
-    notifyListeners();
-    logger.i("Changed emoji to $emoji");
   }
 
   Future<List<String>> selectRandomEmojis(int count) async {

@@ -30,17 +30,15 @@ class MoreScreen extends StatelessWidget {
               ),
               ElevatedButton(
                 onPressed: () async {
-                  rewardsProvider.rewards_count += 1;
+                  ;
                 },
                 child: Text('xd'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  rewardsProvider.add_reward(1);
-                  rewardsProvider.changeEmoji();
+                  ;
                 },
-                child: Text(
-                    "${rewardsProvider.emoji} ${rewardsProvider.rewards_count}"),
+                child: Text(""),
               ),
             ],
           ),
@@ -65,7 +63,7 @@ class MoreScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text("${rewardsProvider.emoji}"),
+                  Text(";"),
                 ],
               ),
             ),

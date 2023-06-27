@@ -44,6 +44,7 @@ class _TimerScreenState extends State<TimerScreen> {
       padding: const EdgeInsets.all(22.0),
       child: TextField(
         controller: _nameController,
+        maxLength: 24, // Maximum number of characters allowed
         decoration: const InputDecoration(
           border: OutlineInputBorder(),
           labelText: 'Enter task name',

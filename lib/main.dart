@@ -24,7 +24,7 @@ import 'package:square_timer/home.dart';
 import 'app_theme.dart';
 import 'package:provider/provider.dart';
 import 'models/models.dart';
-import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_core/firebase_core.dart';
 // import 'screens/login_screen.dart';
 
 Future<void> main() async {

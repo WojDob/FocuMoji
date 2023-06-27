@@ -1,8 +1,6 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:logger/logger.dart';
-import 'models.dart';
 
 class TimerManager extends ChangeNotifier {
   final int initialTimeInMinutes;
