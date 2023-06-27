@@ -38,8 +38,8 @@ class CountdownScreen extends StatelessWidget {
                       visible: timerProvider.timerEnded,
                       child: ElevatedButton(
                         onPressed: () async {
-                          rewardsProvider.changeEmoji();
-                          rewardsProvider.add_reward(5);
+                          rewardsProvider.addRewards(
+                              timerProvider.timerRewards, timerProvider.name);
                           _showModal(context);
                         },
                         child: const Text('Open Modal'),
@@ -87,10 +87,30 @@ class CountdownScreen extends StatelessWidget {
             child: Padding(
               padding: EdgeInsets.all(12.0),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                      "xdd ${rewardsProvider.emoji} ${rewardsProvider.rewards_count}"),
+                    '${rewardsProvider.newRewards.length} New Rewards!',
+                    style: const TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: 22.0),
+                  Wrap(
+                    spacing: 8.0,
+                    runSpacing: 8.0,
+                    children: [
+                      for (Reward reward in rewardsProvider.newRewards)
+                        Text(
+                          reward.symbol,
+                          style: TextStyle(
+                            fontSize: 30,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                    ],
+                  ),
                 ],
               ),
             ),

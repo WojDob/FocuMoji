@@ -7,9 +7,15 @@ class MedalsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var rewards = context.watch<RewardsManager>();
+    var rewardsProvider = context.watch<RewardsManager>();
 
     return SafeArea(
-        child: Text("xd  ${rewards.emoji} ${rewards.rewards_count}"));
+        child: ListView.builder(
+      itemCount: rewardsProvider.allRewards.length,
+      itemBuilder: (context, index) {
+        final reward = rewardsProvider.allRewards[index];
+        return Text(reward.symbol);
+      },
+    ));
   }
 }

@@ -6,7 +6,7 @@ import 'models.dart';
 
 class TimerManager extends ChangeNotifier {
   final int initialTimeInMinutes;
-  final String name; // New name property
+  final String name;
   int _totalRemainingSeconds;
   Timer? _timer;
 
@@ -14,6 +14,7 @@ class TimerManager extends ChangeNotifier {
   int get seconds => _totalRemainingSeconds % 60;
   int get totalRemainingSeconds => _totalRemainingSeconds;
   bool get timerEnded => _totalRemainingSeconds <= 0;
+  int get timerRewards => initialTimeInMinutes ~/ 5;
 
   final Logger logger = Logger();
 

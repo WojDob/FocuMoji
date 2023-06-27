@@ -9,8 +9,30 @@ import 'reward.dart';
 class RewardsManager extends ChangeNotifier {
   int rewards_count = 12;
   String emoji = '🍆';
+  List<Reward> _allRewards = [];
+  List<Reward> _newRewards = [];
+  List<Reward> get allRewards => _allRewards;
+  List<Reward> get newRewards => _newRewards;
 
   final Logger logger = Logger();
+
+  Future<void> addRewards(int count, String timerName) async {
+    logger.i("Adding $count rewards from $timerName");
+    _newRewards = [];
+    final randomEmojis = await selectRandomEmojis(count);
+    _newRewards = randomEmojis.map((emoji) {
+      return Reward(
+        symbol: emoji,
+        acquiredAt: DateTime.now(),
+        timerName: timerName,
+      );
+    }).toList();
+    _allRewards.addAll(_newRewards);
+    print("all rewards in addrewards $allRewards");
+    notifyListeners();
+    logger.i(
+        "Added new rewards: $newRewards\n all rewards: $allRewards\n from $timerName");
+  }
 
   void add_reward(int how_many) {
     rewards_count += how_many;
@@ -30,10 +52,9 @@ class RewardsManager extends ChangeNotifier {
     final jsonString =
         await rootBundle.loadString('assets/data/emoji_list.json');
     final List<dynamic> emojis = jsonDecode(jsonString);
-    final random = Random();
     final List<String> randomEmojis = [];
     while (randomEmojis.length < count) {
-      final randomIndex = random.nextInt(emojis.length);
+      final randomIndex = Random().nextInt(emojis.length);
       if (!randomEmojis.contains(emojis[randomIndex])) {
         randomEmojis.add(emojis[randomIndex]);
       }

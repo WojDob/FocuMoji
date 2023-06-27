@@ -14,6 +14,8 @@ class _TimerScreenState extends State<TimerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final rewards = context.watch<RewardsManager>();
+
     return Scaffold(
       appBar: AppBar(title: const Text('Timer Screen')),
       body: Padding(
@@ -27,7 +29,7 @@ class _TimerScreenState extends State<TimerScreen> {
                 children: [
                   _buildNameInput(),
                   _buildSliderAndValue(),
-                  _buildStartButton(),
+                  _buildStartButton(rewards),
                 ],
               ),
             ),
@@ -76,8 +78,7 @@ class _TimerScreenState extends State<TimerScreen> {
     );
   }
 
-  Widget _buildStartButton() {
-    final rewards = context.watch<RewardsManager>();
+  Widget _buildStartButton(rewards) {
     return Positioned.fill(
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -110,41 +111,3 @@ class _TimerScreenState extends State<TimerScreen> {
     );
   }
 }
-// Widget _buildStartButton() {
-//     return Positioned.fill(
-//       child: Align(
-//         alignment: Alignment.bottomCenter,
-//         child: Visibility(
-//           visible: _sliderValue != 0,
-//           child: Padding(
-//             padding: const EdgeInsets.only(bottom: 16.0),
-//             child: ElevatedButton(
-//               child: const Text("Start"),
-//               onPressed: () {
-//                 Navigator.of(context).push(
-//                   MaterialPageRoute(
-//                     builder: (BuildContext context) => MultiProvider(
-//                       providers: [
-                        // ChangeNotifierProvider(
-                        //   create: (context) => TimerManager.started(
-                        //     initialTimeInMinutes: _sliderValue.toInt(),
-                        //     name: _nameController.text.isNotEmpty
-                        //         ? _nameController.text
-                        //         : 'Unnamed Timer',
-                        //   ),
-//                         ),
-//                         ChangeNotifierProvider(
-//                           create: (context) => RewardsManager(),
-//                         ),
-//                       ],
-//                       builder: (context, child) => CountdownScreen(),
-//                     ),
-//                   ),
-//                 );
-//               },
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
