@@ -73,4 +73,9 @@ class RewardsManager extends ChangeNotifier {
     logger.i("Selected $count random emojis ");
     return randomEmojis;
   }
+
+  int getUniqueEmojisCount() {
+    final uniqueEmojis = _allRewards.map((reward) => reward.symbol).toSet();
+    return uniqueEmojis.length;
+  }
 }
