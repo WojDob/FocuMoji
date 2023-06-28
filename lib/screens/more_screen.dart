@@ -32,11 +32,12 @@ class MoreScreen extends StatelessWidget {
                 onPressed: () async {
                   ;
                 },
-                child: Text('xd'),
+                child: Text('Wipe Shared Preferences'),
               ),
               ElevatedButton(
                 onPressed: () async {
-                  ;
+                  final pref = await SharedPreferences.getInstance();
+                  await pref.clear();
                 },
                 child: Text(""),
               ),
@@ -44,32 +45,6 @@ class MoreScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-
-  void _showModal(BuildContext context) {
-    final rewardsProvider = context.read<RewardsManager>();
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return Dialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20.0),
-          ),
-          child: Container(
-            constraints: const BoxConstraints(maxHeight: 350),
-            child: Padding(
-              padding: EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(";"),
-                ],
-              ),
-            ),
-          ),
-        );
-      },
     );
   }
 }
