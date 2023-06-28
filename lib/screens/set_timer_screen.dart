@@ -17,7 +17,7 @@ class _TimerScreenState extends State<TimerScreen> {
     final rewards = context.watch<RewardsManager>();
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Timer Screen')),
+      appBar: AppBar(title: const Text('Set a new timer')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Center(
@@ -63,7 +63,7 @@ class _TimerScreenState extends State<TimerScreen> {
             value: _sliderValue,
             min: 0,
             max: 120,
-            divisions: 120,
+            divisions: 24,
             onChanged: (newValue) {
               setState(() {
                 _sliderValue = newValue;
@@ -71,7 +71,7 @@ class _TimerScreenState extends State<TimerScreen> {
             },
           ),
           Text(
-            _sliderValue.round().toString(),
+            _sliderValue.round().toString() + " min",
             style: const TextStyle(fontSize: 24),
           ),
         ],

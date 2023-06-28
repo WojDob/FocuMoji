@@ -12,36 +12,39 @@ class MoreScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final rewardsProvider = context.watch<RewardsManager>();
 
-    return SafeArea(
-      child: SizedBox(
-        width: 300,
-        height: 500,
-        child: Center(
-          child: Column(
-            children: [
-              ElevatedButton(
-                onPressed: () async {
-                  final sharedPrefs = await SharedPreferences.getInstance();
-                  final storedEmojis =
-                      sharedPrefs.getStringList('rewards') ?? [];
-                  print(storedEmojis);
-                },
-                child: Text('View Shared Preferences'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  ;
-                },
-                child: Text('Wipe Shared Preferences'),
-              ),
-              ElevatedButton(
-                onPressed: () async {
-                  final pref = await SharedPreferences.getInstance();
-                  await pref.clear();
-                },
-                child: Text(""),
-              ),
-            ],
+    return Scaffold(
+      appBar: AppBar(title: const Text('FocuMoji')),
+      body: SafeArea(
+        child: SizedBox(
+          width: 300,
+          height: 500,
+          child: Center(
+            child: Column(
+              children: [
+                ElevatedButton(
+                  onPressed: () async {
+                    final sharedPrefs = await SharedPreferences.getInstance();
+                    final storedEmojis =
+                        sharedPrefs.getStringList('rewards') ?? [];
+                    print(storedEmojis);
+                  },
+                  child: Text('View Shared Preferences'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    ;
+                  },
+                  child: Text('Wipe Shared Preferences'),
+                ),
+                ElevatedButton(
+                  onPressed: () async {
+                    final pref = await SharedPreferences.getInstance();
+                    await pref.clear();
+                  },
+                  child: Text(""),
+                ),
+              ],
+            ),
           ),
         ),
       ),

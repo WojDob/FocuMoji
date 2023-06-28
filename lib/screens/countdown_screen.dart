@@ -42,7 +42,7 @@ class CountdownScreen extends StatelessWidget {
                               timerProvider.timerRewards, timerProvider.name);
                           _showModal(context);
                         },
-                        child: const Text('Open Modal'),
+                        child: const Text('Collect rewards!'),
                       ),
                     ),
                   ],

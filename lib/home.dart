@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'screens/set_timer_screen.dart';
-import 'screens/medals_screen.dart';
+import 'screens/rewards_screen.dart';
 import 'screens/more_screen.dart';
 import 'package:provider/provider.dart';
 import 'models/models.dart';
@@ -44,7 +44,7 @@ class Home extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.workspace_premium),
-                label: 'Medals',
+                label: 'Rewards',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.more_horiz),
