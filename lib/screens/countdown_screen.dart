@@ -35,11 +35,15 @@ class CountdownScreen extends StatelessWidget {
                       ),
                     ),
                     Visibility(
-                      visible: timerProvider.timerEnded,
+                      visible: timerProvider.timerEnded &&
+                          !timerProvider
+                              .rewardsCollected, // Add condition to check if rewards were not collected
                       child: ElevatedButton(
                         onPressed: () async {
                           rewardsProvider.addRewards(
                               timerProvider.timerRewards, timerProvider.name);
+                          timerProvider.rewardsCollected =
+                              true; // Set rewardsCollected to true
                           _showModal(context);
                         },
                         child: const Text('Collect rewards!'),

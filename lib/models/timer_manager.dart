@@ -7,7 +7,7 @@ class TimerManager extends ChangeNotifier {
   final String name;
   int _totalRemainingSeconds;
   Timer? _timer;
-
+  bool rewardsCollected = false;
   int get minutes => _totalRemainingSeconds ~/ 60;
   int get seconds => _totalRemainingSeconds % 60;
   int get totalRemainingSeconds => _totalRemainingSeconds;
