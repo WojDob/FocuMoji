@@ -17,39 +17,46 @@ class CountdownScreen extends StatelessWidget {
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: Card(
-            child: SizedBox(
-              width: 300,
-              height: 500,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20),
-                child: Column(
-                  children: [
-                    Text(timerProvider.name),
-                    _buildTimeText(timerProvider),
-                    const SizedBox(height: 16),
-                    Expanded(
-                      child: SquaresGrid(
-                        totalNumberOfSquares:
-                            timerProvider.initialTimeInMinutes,
-                      ),
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints: BoxConstraints(
+                maxHeight: MediaQuery.of(context).size.height - 100,
+              ),
+              child: Card(
+                child: SizedBox(
+                  width: 300,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 20),
+                    child: Column(
+                      children: [
+                        Text(timerProvider.name),
+                        _buildTimeText(timerProvider),
+                        const SizedBox(height: 16),
+                        Expanded(
+                          child: SquaresGrid(
+                            totalNumberOfSquares:
+                                timerProvider.initialTimeInMinutes,
+                          ),
+                        ),
+                        Visibility(
+                          visible: timerProvider.timerEnded &&
+                              !timerProvider
+                                  .rewardsCollected, // Add condition to check if rewards were not collected
+                          child: ElevatedButton(
+                            onPressed: () async {
+                              rewardsProvider.addRewards(
+                                  timerProvider.timerRewards,
+                                  timerProvider.name);
+                              timerProvider.rewardsCollected =
+                                  true; // Set rewardsCollected to true
+                              _showModal(context);
+                            },
+                            child: const Text('Collect rewards!'),
+                          ),
+                        ),
+                      ],
                     ),
-                    Visibility(
-                      visible: timerProvider.timerEnded &&
-                          !timerProvider
-                              .rewardsCollected, // Add condition to check if rewards were not collected
-                      child: ElevatedButton(
-                        onPressed: () async {
-                          rewardsProvider.addRewards(
-                              timerProvider.timerRewards, timerProvider.name);
-                          timerProvider.rewardsCollected =
-                              true; // Set rewardsCollected to true
-                          _showModal(context);
-                        },
-                        child: const Text('Collect rewards!'),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -79,6 +86,10 @@ class CountdownScreen extends StatelessWidget {
 
   void _showModal(BuildContext context) {
     final rewardsProvider = context.read<RewardsManager>();
+
+    final modalBackgroundColor = Theme.of(context).dialogBackgroundColor;
+    final lighterColor = Color.lerp(modalBackgroundColor, Colors.white, 0.2);
+
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -101,19 +112,29 @@ class CountdownScreen extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 22.0),
-                  Wrap(
-                    spacing: 8.0,
-                    runSpacing: 8.0,
-                    children: [
-                      for (Reward reward in rewardsProvider.newRewards)
-                        Text(
-                          reward.symbol,
-                          style: TextStyle(
-                            fontSize: 30,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                    ],
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        spacing: 8.0,
+                        runSpacing: 8.0,
+                        children: [
+                          for (Reward reward in rewardsProvider.newRewards)
+                            Card(
+                              color: lighterColor,
+                              child: Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Text(
+                                  reward.symbol,
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
                   ),
                 ],
               ),

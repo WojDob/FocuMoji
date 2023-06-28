@@ -32,16 +32,16 @@ class MoreScreen extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    ;
+                    rewardsProvider.addRandomEmojisDebug();
                   },
-                  child: Text('Wipe Shared Preferences'),
+                  child: Text('ADD 1000 EMOJIS'),
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     final pref = await SharedPreferences.getInstance();
                     await pref.clear();
                   },
-                  child: Text(""),
+                  child: Text('Wipe Shared Preferences'),
                 ),
               ],
             ),

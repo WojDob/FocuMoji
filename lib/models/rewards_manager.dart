@@ -78,4 +78,8 @@ class RewardsManager extends ChangeNotifier {
     final uniqueEmojis = _allRewards.map((reward) => reward.symbol).toSet();
     return uniqueEmojis.length;
   }
+
+  void addRandomEmojisDebug() async {
+    await addRewards(1000, 'Debug Timer');
+  }
 }
