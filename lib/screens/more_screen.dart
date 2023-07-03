@@ -6,7 +6,7 @@ import '../models/rewards_manager.dart';
 import 'package:provider/provider.dart';
 
 class MoreScreen extends StatelessWidget {
-  const MoreScreen({Key? key});
+  const MoreScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -28,20 +28,20 @@ class MoreScreen extends StatelessWidget {
                         sharedPrefs.getStringList('rewards') ?? [];
                     print(storedEmojis);
                   },
-                  child: Text('View Shared Preferences'),
+                  child: const Text('View Shared Preferences'),
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     rewardsProvider.addRandomEmojisDebug();
                   },
-                  child: Text('ADD 1000 EMOJIS'),
+                  child: const Text('ADD 1000 EMOJIS'),
                 ),
                 ElevatedButton(
                   onPressed: () async {
                     final pref = await SharedPreferences.getInstance();
                     await pref.clear();
                   },
-                  child: Text('Wipe Shared Preferences'),
+                  child: const Text('Wipe Shared Preferences'),
                 ),
               ],
             ),

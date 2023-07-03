@@ -60,7 +60,7 @@ class TimerTheme {
 
   static ThemeData light() {
     return ThemeData(
-      scaffoldBackgroundColor: Color.fromRGBO(242, 242, 246, 1.0),
+      scaffoldBackgroundColor: const Color.fromRGBO(242, 242, 246, 1.0),
       brightness: Brightness.light,
       checkboxTheme: CheckboxThemeData(
         fillColor: MaterialStateColor.resolveWith((states) {

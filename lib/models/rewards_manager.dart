@@ -12,6 +12,8 @@ class RewardsManager extends ChangeNotifier {
   List<Reward> get allRewards => _allRewards;
   List<Reward> get newRewards => _newRewards;
   late SharedPreferences _sharedPreferences;
+  static String pathToEmojiList = 'assets/data/filtered-emoji-list.json';
+
   final Logger logger = Logger();
 
   Future<void> initialize() async {
@@ -47,9 +49,10 @@ class RewardsManager extends ChangeNotifier {
     final randomEmojis = await selectRandomEmojis(count);
     _newRewards = randomEmojis.map((emoji) {
       return Reward(
-        symbol: emoji,
+        symbol: emoji['emoji'],
         acquiredAt: DateTime.now(),
         timerName: timerName,
+        category: emoji['category'],
       );
     }).toList();
     _allRewards.addAll(_newRewards);
@@ -59,18 +62,23 @@ class RewardsManager extends ChangeNotifier {
         "Added new rewards: $newRewards\n from timer: $timerName\n total rewards: ${allRewards.length}");
   }
 
-  Future<List<String>> selectRandomEmojis(int count) async {
-    final jsonString =
-        await rootBundle.loadString('assets/data/emoji_list.json');
-    final List<dynamic> emojis = jsonDecode(jsonString);
-    final List<String> randomEmojis = [];
+  Future<List<Map<String, dynamic>>> selectRandomEmojis(int count) async {
+    final jsonString = await rootBundle.loadString(pathToEmojiList);
+    final Map<String, dynamic> emojisJson = jsonDecode(jsonString);
+    final List<Map<String, dynamic>> allAvailableEmojis = [];
+    emojisJson.forEach((category, emojis) {
+      for (var emoji in emojis) {
+        allAvailableEmojis.add({...emoji, 'category': category});
+      }
+    });
+    final List<Map<String, dynamic>> randomEmojis = [];
     while (randomEmojis.length < count) {
-      final randomIndex = Random().nextInt(emojis.length);
-      if (!randomEmojis.contains(emojis[randomIndex])) {
-        randomEmojis.add(emojis[randomIndex]);
+      final randomIndex = Random().nextInt(allAvailableEmojis.length);
+      if (!randomEmojis.contains(allAvailableEmojis[randomIndex])) {
+        randomEmojis.add(allAvailableEmojis[randomIndex]);
       }
     }
-    logger.i("Selected $count random emojis ");
+    logger.i("Selected $count random emojis");
     return randomEmojis;
   }
 
@@ -79,7 +87,16 @@ class RewardsManager extends ChangeNotifier {
     return uniqueEmojis.length;
   }
 
+  int getUnlockedEmojisCountForCategory(String category) {
+    final matchingRewards = _allRewards.where((reward) {
+      return reward.category == category;
+    }).toList();
+
+    final uniqueEmojis = matchingRewards.map((reward) => reward.symbol).toSet();
+    return uniqueEmojis.length;
+  }
+
   void addRandomEmojisDebug() async {
-    await addRewards(1000, 'Debug Timer');
+    await addRewards(1000, 'Debug Timer2');
   }
 }

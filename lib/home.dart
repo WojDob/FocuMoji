@@ -8,9 +8,9 @@ import 'models/models.dart';
 
 class Home extends StatelessWidget {
   static List<Widget> pages = <Widget>[
-    TimerScreen(),
-    MedalsScreen(),
-    MoreScreen(),
+    const TimerScreen(),
+    const RewardsScreen(),
+    const MoreScreen(),
   ];
 
   const Home({super.key});

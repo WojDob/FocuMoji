@@ -4,6 +4,8 @@ import 'package:square_timer/screens/countdown_screen.dart';
 import '../models/models.dart';
 
 class TimerScreen extends StatefulWidget {
+  const TimerScreen({super.key});
+
   @override
   State<TimerScreen> createState() => _TimerScreenState();
 }
@@ -71,7 +73,7 @@ class _TimerScreenState extends State<TimerScreen> {
             },
           ),
           Text(
-            _sliderValue.round().toString() + " min",
+            "${_sliderValue.round()} min",
             style: const TextStyle(fontSize: 24),
           ),
         ],
@@ -94,7 +96,7 @@ class _TimerScreenState extends State<TimerScreen> {
                   builder: (context) => ChangeNotifierProvider(
                     child: ChangeNotifierProvider<RewardsManager>.value(
                       value: rewards,
-                      child: CountdownScreen(),
+                      child: const CountdownScreen(),
                     ),
                     create: (context) => TimerManager.started(
                       initialTimeInMinutes: _sliderValue.toInt(),

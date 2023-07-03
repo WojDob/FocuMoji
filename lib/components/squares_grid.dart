@@ -53,7 +53,7 @@ class _SquaresGridState extends State<SquaresGrid> {
         itemCount: widget.totalNumberOfSquares,
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: rowCount,
-          mainAxisSpacing: 4,
+          mainAxisSpacing: 2,
           crossAxisSpacing: 4,
         ),
         itemBuilder: (context, index) => _buildSquare(index, squaresFilled),

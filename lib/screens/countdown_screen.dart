@@ -1,5 +1,3 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import '../components/squares_grid.dart';
 import '../models/models.dart';
@@ -100,7 +98,7 @@ class CountdownScreen extends StatelessWidget {
           child: Container(
             constraints: const BoxConstraints(maxHeight: 350),
             child: Padding(
-              padding: EdgeInsets.all(12.0),
+              padding: const EdgeInsets.all(12.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
@@ -122,10 +120,10 @@ class CountdownScreen extends StatelessWidget {
                             Card(
                               color: lighterColor,
                               child: Padding(
-                                padding: EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(8.0),
                                 child: Text(
                                   reward.symbol,
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     fontSize: 30,
                                     fontWeight: FontWeight.bold,
                                   ),

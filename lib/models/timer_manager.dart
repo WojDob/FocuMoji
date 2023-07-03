@@ -58,7 +58,9 @@ class TimerManager extends ChangeNotifier {
 
   Duration _getTimerDuration() {
     bool isDebugMode = kDebugMode;
-    return isDebugMode ? Duration(milliseconds: 1) : Duration(seconds: 1);
+    return isDebugMode
+        ? const Duration(milliseconds: 1)
+        : const Duration(seconds: 1);
   }
 
   @override
