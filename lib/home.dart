@@ -10,7 +10,7 @@ class Home extends StatelessWidget {
   static List<Widget> pages = <Widget>[
     const TimerScreen(),
     const RewardsScreen(),
-    const MoreScreen(),
+    MoreScreen(),
   ];
 
   const Home({super.key});

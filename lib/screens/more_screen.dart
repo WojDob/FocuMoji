@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
+
+  Future<String> getAppVersion() async {
+    final PackageInfo info = await PackageInfo.fromPlatform();
+    return info.version;
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('FocuMoji'),
+        title: const Text('More'),
       ),
       body: SafeArea(
         child: Column(
@@ -61,6 +67,34 @@ class MoreScreen extends StatelessWidget {
             ),
             // The rest of your widgets.
             // ...
+            Expanded(
+              child: Container(),
+            ),
+            FutureBuilder<String>(
+              future: getAppVersion(),
+              builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const CircularProgressIndicator();
+                } else if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else {
+                  return Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        const Text(
+                          'FocuMoji',
+                          style: TextStyle(
+                              fontSize: 15, fontWeight: FontWeight.bold),
+                          textAlign: TextAlign.center,
+                        ),
+                        Text('v${snapshot.data}'),
+                      ],
+                    ),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),

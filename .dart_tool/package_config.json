@@ -230,6 +230,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "package_info_plus",
+      "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/package_info_plus-4.0.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
+    },
+    {
+      "name": "package_info_plus_platform_interface",
+      "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/package_info_plus_platform_interface-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "path",
       "rootUri": "file:///home/wojdob/.pub-cache/hosted/pub.dev/path-1.8.3",
       "packageUri": "lib/",
@@ -428,7 +440,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-07-11T06:05:47.645588Z",
+  "generated": "2023-07-11T06:54:33.954796Z",
   "generator": "pub",
   "generatorVersion": "3.0.3"
 }

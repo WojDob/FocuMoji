@@ -79,8 +79,8 @@ class RewardsScreen extends StatelessWidget {
                                       onTap: () =>
                                           _showRewardDetails(context, reward),
                                       child: Card(
-                                        color: const Color.fromRGBO(
-                                            255, 215, 0, 1.0),
+                                        color:
+                                            Color.fromRGBO(255, 217, 0, 0.76),
                                         child: Center(
                                           child: Text(
                                             reward.symbol,
