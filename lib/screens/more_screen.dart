@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
+import 'about_screen.dart';
+
 class MoreScreen extends StatelessWidget {
   const MoreScreen({Key? key}) : super(key: key);
 
@@ -30,7 +32,13 @@ class MoreScreen extends StatelessWidget {
                   context: context,
                   tiles: [
                     ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => AboutScreen()),
+                        );
+                      },
                       leading: _buildIconContainer(
                         Icons.info_outline,
                       ),

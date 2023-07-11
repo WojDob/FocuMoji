@@ -134,6 +134,12 @@ class CountdownScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop(); // Close the dialog
+                    },
+                    child: const Text('Return'),
+                  ),
                 ],
               ),
             ),
