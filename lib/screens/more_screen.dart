@@ -1,82 +1,88 @@
 import 'package:flutter/material.dart';
-// import 'package:firebase_auth/firebase_auth.dart';
-// import 'login_screen.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../models/rewards_manager.dart';
-import 'package:provider/provider.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class MoreScreen extends StatelessWidget {
-  const MoreScreen({super.key});
+  const MoreScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final rewardsProvider = context.watch<RewardsManager>();
-
     return Scaffold(
-      appBar: AppBar(title: const Text('FocuMoji')),
+      appBar: AppBar(
+        title: const Text('FocuMoji'),
+      ),
       body: SafeArea(
-        child: SizedBox(
-          width: 300,
-          height: 500,
-          child: Center(
-            child: Column(
-              children: [
-                ElevatedButton(
-                  onPressed: () async {
-                    final sharedPrefs = await SharedPreferences.getInstance();
-                    final storedEmojis =
-                        sharedPrefs.getStringList('rewards') ?? [];
-                    print(storedEmojis);
-                  },
-                  child: const Text('View Shared Preferences'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    rewardsProvider.addRandomEmojisDebug();
-                  },
-                  child: const Text('ADD 1000 EMOJIS'),
-                ),
-                ElevatedButton(
-                  onPressed: () async {
-                    final pref = await SharedPreferences.getInstance();
-                    await pref.clear();
-                  },
-                  child: const Text('Wipe Shared Preferences'),
-                ),
-              ],
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Card(
+              margin: const EdgeInsets.all(10),
+              elevation: 5,
+              child: ListView(
+                physics: const BouncingScrollPhysics(),
+                shrinkWrap: true,
+                children: ListTile.divideTiles(
+                  context: context,
+                  tiles: [
+                    ListTile(
+                      onTap: () {},
+                      leading: _buildIconContainer(
+                        Icons.info_outline,
+                      ),
+                      title: const Text('About'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      leading: _buildIconContainer(
+                        Icons.assignment_outlined,
+                      ),
+                      title: const Text('Terms of Use'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      leading: _buildIconContainer(
+                        Icons.feedback_outlined,
+                      ),
+                      title: const Text('Feedback'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      leading: _buildIconContainer(
+                        FontAwesomeIcons.twitter,
+                      ),
+                      title: const Text('Follow on Twitter'),
+                      trailing: const Icon(Icons.arrow_forward_ios),
+                    ),
+                  ],
+                ).toList(),
+              ),
             ),
-          ),
+            // The rest of your widgets.
+            // ...
+          ],
         ),
       ),
     );
   }
+
+  Widget _buildIconContainer(IconData icon) {
+    Color iconColor = Colors.white;
+    Color boxColor = const Color.fromARGB(156, 255, 255, 0);
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(5),
+        color: boxColor,
+        border: Border.all(
+          color: boxColor,
+        ),
+      ),
+      padding: const EdgeInsets.all(1),
+      child: Icon(
+        icon,
+        color: iconColor,
+      ),
+    );
+  }
 }
-
-
-  // Future<void> _signOutAndNavigate(BuildContext context) async {
-  //   await FirebaseAuth.instance.signOut();
-  //   Navigator.pushReplacement(
-  //     context,
-  //     MaterialPageRoute(
-  //       builder: (context) => LoginScreen(),
-  //     ),
-  //   );
-  // }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Scaffold(
-  //     appBar: AppBar(
-  //       title: Text('More Screen'),
-  //     ),
-  //     body: Center(
-  //       child: ElevatedButton(
-  //         onPressed: () {
-  //           _signOutAndNavigate(context);
-  //         },
-  //         child: Text('Log Out'),
-  //       ),
-  //     ),
-  //   );
-  // }
-// }

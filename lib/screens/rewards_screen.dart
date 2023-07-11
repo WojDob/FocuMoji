@@ -52,7 +52,7 @@ class RewardsScreen extends StatelessWidget {
 
                         return ExpansionTile(
                           title: Text(
-                              '$key ($unlockedEmojisCountInCategory / $totalEmojisCountInCategory)'),
+                              '$key ($unlockedEmojisCountInCategory/$totalEmojisCountInCategory)'),
                           children: [
                             GridView.builder(
                                 gridDelegate:

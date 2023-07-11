@@ -97,6 +97,6 @@ class RewardsManager extends ChangeNotifier {
   }
 
   void addRandomEmojisDebug() async {
-    await addRewards(1000, 'Debug Timer2');
+    await addRewards(100, 'Debug Timer2');
   }
 }
