@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:package_info_plus/package_info_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 import 'about_screen.dart';
 import 'terms_screen.dart';
@@ -11,6 +13,26 @@ class MoreScreen extends StatelessWidget {
   Future<String> getAppVersion() async {
     final PackageInfo info = await PackageInfo.fromPlatform();
     return info.version;
+  }
+
+  void sendEmail() async {
+    final Email email = Email(
+      body: 'Description of the issue:',
+      subject: 'Focumoji Feedback',
+      recipients: ['goodfolkdev@gmail.com'],
+      // attachmentPaths: ['/path/to/attachment.zip'],
+      isHTML: false,
+    );
+
+    await FlutterEmailSender.send(email);
+  }
+
+  void launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
   }
 
   @override
@@ -51,7 +73,7 @@ class MoreScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => TermsOfUseScreen()),
+                              builder: (context) => const TermsOfUseScreen()),
                         );
                       },
                       leading: _buildIconContainer(
@@ -61,15 +83,17 @@ class MoreScreen extends StatelessWidget {
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
                     ListTile(
-                      onTap: () {},
+                      onTap: sendEmail,
                       leading: _buildIconContainer(
                         Icons.feedback_outlined,
                       ),
-                      title: const Text('Feedback'),
+                      title: const Text('Send Feedback'),
                       trailing: const Icon(Icons.arrow_forward_ios),
                     ),
                     ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        launchURL('https://twitter.com/GoodfolkDev');
+                      },
                       leading: _buildIconContainer(
                         FontAwesomeIcons.twitter,
                       ),
